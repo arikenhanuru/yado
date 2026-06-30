@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#1f3a34">
+<title>宿コレクション</title>
+<style>
+  :root{
+    --bg:#f4f1ea; --card:#fff; --ink:#23211d; --muted:#8a8478;
+    --accent:#1f3a34; --accent2:#c0813b; --line:#e6e1d6; --shadow:0 4px 14px rgba(40,35,25,.08);
+    --side:240px;
+  }
+  *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+  html,body{margin:0;padding:0}
+  body{font-family:-apple-system,BlinkMacSystemFont,"Hiragino Sans","Noto Sans JP",sans-serif;background:var(--bg);color:var(--ink);line-height:1.5}
+
+  header{background:var(--accent);color:#fff;padding:16px 18px;position:sticky;top:0;z-index:30;box-shadow:0 2px 10px rgba(0,0,0,.12);display:flex;align-items:center;gap:12px}
+  .menu-btn{display:none;background:rgba(255,255,255,.15);border:1px solid rgba(255,255,255,.25);color:#fff;border-radius:8px;width:38px;height:38px;font-size:18px;cursor:pointer;flex:none}
+  header h1{margin:0;font-size:19px;letter-spacing:.04em;font-weight:700;flex:none}
+  header .count{font-size:13px;color:#d9cdb6}
+  .search{margin-left:auto;display:flex;align-items:center;gap:8px;background:rgba(255,255,255,.14);border:1px solid rgba(255,255,255,.22);border-radius:11px;padding:7px 12px;min-width:200px;max-width:320px;flex:1}
+  .search input{flex:1;border:0;background:transparent;color:#fff;font-size:16px;outline:none;min-width:0}
+  .search input::placeholder{color:#cfc6b3}
+
+  .layout{display:flex;align-items:flex-start;width:100%;margin:0}
+
+  /* ---- サイドバー ---- */
+  .sidebar{width:var(--side);flex:none;padding:16px 12px 40px 18px;position:sticky;top:68px;max-height:calc(100vh - 68px);overflow-y:auto}
+  .side-title{font-size:12px;color:var(--muted);font-weight:700;letter-spacing:.06em;text-transform:uppercase;margin:0 6px 10px}
+  .side-all{display:flex;justify-content:space-between;align-items:center;width:100%;background:var(--card);border:1px solid var(--line);border-radius:10px;padding:9px 12px;font-size:14px;font-weight:700;cursor:pointer;margin-bottom:10px;color:var(--ink)}
+  .side-all.active{background:var(--accent);color:#fff;border-color:var(--accent)}
+  .side-all .n{color:var(--muted);font-weight:600}
+  .side-all.active .n{color:#cfe3dc}
+
+  .region{margin-bottom:4px}
+  .region-head{display:flex;align-items:center;gap:6px;width:100%;background:none;border:0;padding:8px 6px;font-size:14px;font-weight:700;color:var(--accent);cursor:pointer;border-radius:8px}
+  .region-head:hover{background:rgba(31,58,52,.06)}
+  .region-head .caret{transition:transform .18s;font-size:11px;color:var(--muted)}
+  .region.collapsed .caret{transform:rotate(-90deg)}
+  .region-head .r-name{flex:1;text-align:left}
+  .region-head .r-count{font-size:12px;color:var(--muted);font-weight:600}
+  .region-list{overflow:hidden}
+  .region.collapsed .region-list{display:none}
+  .pref-item{display:flex;justify-content:space-between;align-items:center;width:100%;background:none;border:0;padding:7px 10px 7px 24px;font-size:14px;color:var(--ink);cursor:pointer;border-radius:8px}
+  .pref-item:hover{background:rgba(192,129,59,.1)}
+  .pref-item.active{background:var(--accent);color:#fff}
+  .pref-item .n{font-size:12px;color:var(--muted)}
+  .pref-item.active .n{color:#cfe3dc}
+
+  /* ---- メイン ---- */
+  .main{flex:1;min-width:0;padding:14px 16px 60px}
+  .toolbar{display:flex;justify-content:space-between;align-items:center;margin:2px 0 12px;gap:10px;flex-wrap:wrap}
+  .result-count{font-size:14px;color:var(--muted);font-weight:600}
+  .clear-btn{font-size:13px;color:var(--accent2);background:none;border:0;cursor:pointer;padding:4px}
+  .clear-btn:hover{text-decoration:underline}
+
+  .grid{display:grid;gap:16px;grid-template-columns:repeat(auto-fill,minmax(265px,1fr))}
+  .card{background:var(--card);border-radius:14px;overflow:hidden;box-shadow:var(--shadow);display:flex;flex-direction:column;border:1px solid var(--line);transition:transform .15s,box-shadow .15s;text-decoration:none;color:inherit}
+  .card:hover{transform:translateY(-2px);box-shadow:0 10px 22px rgba(40,35,25,.14)}
+  .thumb{position:relative;aspect-ratio:16/10;background:#ddd6c8 center/cover no-repeat}
+  .thumb .pref{position:absolute;bottom:9px;left:9px;font-size:12px;font-weight:700;background:rgba(31,58,52,.9);color:#fff;padding:3px 10px;border-radius:6px}
+  .card-body{padding:13px 15px 15px;display:flex;flex-direction:column;gap:6px;flex:1}
+  .card h3{margin:0;font-size:17px;line-height:1.35}
+  .note{font-size:13px;color:#6b6457;margin:0}
+  .price{font-size:14px;color:var(--accent2);font-weight:700;display:flex;align-items:center;gap:5px}
+  .price .lbl{font-size:11px;color:var(--muted);font-weight:600}
+  .card-foot{display:flex;justify-content:space-between;align-items:center;margin-top:auto;padding-top:8px;gap:8px}
+  .ext{font-size:13px;color:var(--accent2);font-weight:700;white-space:nowrap}
+
+  .empty{text-align:center;color:var(--muted);padding:60px 20px}
+  .empty .big{font-size:40px;margin-bottom:10px}
+  .backdrop{display:none}
+
+  @media(max-width:760px){
+    .menu-btn{display:block}
+    header h1{font-size:17px}
+    .search{min-width:120px}
+    .sidebar{position:fixed;top:0;left:0;height:100vh;max-height:none;width:280px;background:var(--bg);z-index:40;transform:translateX(-100%);transition:transform .25s;box-shadow:4px 0 20px rgba(0,0,0,.15);padding-top:18px}
+    .sidebar.open{transform:translateX(0)}
+    .backdrop.show{display:block;position:fixed;inset:0;background:rgba(0,0,0,.35);z-index:35}
+    .grid{grid-template-columns:1fr 1fr;gap:10px}
+    .card h3{font-size:14px}
+    .card-body{padding:8px 10px 10px}
+  }
+</style>
+</head>
+<body>
+<header>
+  <button class="menu-btn" id="menuBtn" aria-label="エリア">☰</button>
+  <h1>宿コレクション</h1>
+  <span class="count" id="totalCount"></span>
+  <div class="search">
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#cfc6b3" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4-4"/></svg>
+    <input id="searchInput" type="search" placeholder="宿名・メモで検索…" autocomplete="off">
+  </div>
+</header>
+
+<div class="layout">
+  <aside class="sidebar" id="sidebar">
+    <p class="side-title">エリアで絞り込み</p>
+    <button class="side-all active" id="allBtn">
+      <span>すべて</span><span class="n" id="allCount"></span>
+    </button>
+    <div id="regions"></div>
+  </aside>
+
+  <main class="main">
+    <div class="toolbar">
+      <span class="result-count" id="resultCount"></span>
+      <button class="clear-btn" id="clearBtn" hidden>絞り込みを解除</button>
+    </div>
+    <div class="grid" id="grid"></div>
+    <div class="empty" id="empty" hidden><div class="big">🏞️</div><p>条件に合う宿がありません。</p></div>
+  </main>
+</div>
+<div class="backdrop" id="backdrop"></div>
+
+<script src="data.js"></script>
+<script>
+  const $ = s => document.querySelector(s);
+  const state = { pref:null, q:"" };
+
+  // 地方 → 都道府県（北→南）
+  const REGIONS = [
+    ["北海道", ["北海道"]],
+    ["東北",   ["青森県","岩手県","宮城県","秋田県","山形県","福島県"]],
+    ["関東",   ["茨城県","栃木県","群馬県","埼玉県","千葉県","東京都","神奈川県"]],
+    ["中部",   ["新潟県","富山県","石川県","福井県","山梨県","長野県","岐阜県","静岡県","愛知県"]],
+    ["近畿",   ["三重県","滋賀県","京都府","大阪府","兵庫県","奈良県","和歌山県"]],
+    ["中国",   ["鳥取県","島根県","岡山県","広島県","山口県"]],
+    ["四国",   ["徳島県","香川県","愛媛県","高知県"]],
+    ["九州・沖縄", ["福岡県","佐賀県","長崎県","熊本県","大分県","宮崎県","鹿児島県","沖縄県"]],
+  ];
+
+  function countFor(pref){ return HOTELS.filter(h=>h.pref===pref).length; }
+
+  // 折りたたみ状態の保存（使えない環境でも安全に）
+  const store = {
+    get(k,d){ try{ const v=localStorage.getItem(k); return v===null?d:JSON.parse(v); }catch(e){ return d; } },
+    set(k,v){ try{ localStorage.setItem(k,JSON.stringify(v)); }catch(e){} }
+  };
+
+  function buildSidebar(){
+    $("#allCount").textContent = `全 ${HOTELS.length}`;
+    const wrap = $("#regions");
+    wrap.innerHTML = "";
+    REGIONS.forEach(([rname, prefs])=>{
+      const present = prefs.filter(p=>countFor(p)>0);
+      if(present.length===0) return;                 // 登録のない地方は非表示
+      const rtotal = present.reduce((s,p)=>s+countFor(p),0);
+      const collapsed = store.get("col:"+rname, false);
+
+      const region = document.createElement("div");
+      region.className = "region" + (collapsed?" collapsed":"");
+
+      const head = document.createElement("button");
+      head.className = "region-head";
+      head.innerHTML = `<span class="caret">▼</span><span class="r-name">${rname}</span><span class="r-count">${rtotal}</span>`;
+      head.onclick = ()=>{ region.classList.toggle("collapsed"); store.set("col:"+rname, region.classList.contains("collapsed")); };
+      region.appendChild(head);
+
+      const list = document.createElement("div");
+      list.className = "region-list";
+      present.forEach(p=>{
+        const b = document.createElement("button");
+        b.className = "pref-item"; b.dataset.val = p;
+        b.innerHTML = `<span>${p}</span><span class="n">${countFor(p)}</span>`;
+        b.onclick = ()=>{ state.pref = (state.pref===p)?null:p; closeSidebar(); render(); };
+        list.appendChild(b);
+      });
+      region.appendChild(list);
+      wrap.appendChild(region);
+    });
+  }
+
+  // 検索・すべて・クリア
+  $("#totalCount").textContent = `全 ${HOTELS.length} 軒`;
+  $("#searchInput").addEventListener("input", e=>{ state.q=e.target.value.trim(); render(); });
+  $("#allBtn").addEventListener("click", ()=>{ state.pref=null; closeSidebar(); render(); });
+  $("#clearBtn").addEventListener("click", ()=>{ state.pref=null; state.q=""; $("#searchInput").value=""; render(); });
+
+  // スマホ用ドロワー
+  const sidebar=$("#sidebar"), backdrop=$("#backdrop");
+  function openSidebar(){ sidebar.classList.add("open"); backdrop.classList.add("show"); }
+  function closeSidebar(){ sidebar.classList.remove("open"); backdrop.classList.remove("show"); }
+  $("#menuBtn").addEventListener("click", openSidebar);
+  backdrop.addEventListener("click", closeSidebar);
+
+  function matches(h){
+    if(state.pref && h.pref!==state.pref) return false;
+    if(state.q){
+      const hay=[h.name,h.pref,h.note].join(" ").toLowerCase();
+      if(!hay.includes(state.q.toLowerCase())) return false;
+    }
+    return true;
+  }
+  function card(h){
+    const photo=h.photo?`style="background-image:url('${h.photo}')"`:"";
+    const pref=h.pref?`<span class="pref">${h.pref}</span>`:"";
+    const note=h.note?`<p class="note">${h.note}</p>`:"";
+    const price=h.price?`<span class="price"><span class="lbl">1泊</span>¥${h.price}</span>`:"<span></span>";
+    const tag=h.url?"a":"div";
+    const href=h.url?`href="${h.url}" target="_blank" rel="noopener"`:"";
+    const ext=h.url?`<span class="ext">公式サイト ↗</span>`:"";
+    return `<${tag} class="card" ${href}><div class="thumb" ${photo}>${pref}</div><div class="card-body"><h3>${h.name}</h3>${note}<div class="card-foot">${price}${ext}</div></div></${tag}>`;
+  }
+  function render(){
+    document.querySelectorAll(".pref-item").forEach(b=>b.classList.toggle("active", state.pref===b.dataset.val));
+    $("#allBtn").classList.toggle("active", !state.pref);
+    const list=HOTELS.filter(matches);
+    $("#grid").innerHTML=list.map(card).join("");
+    $("#empty").hidden=list.length>0;
+    $("#resultCount").textContent = state.pref ? `${state.pref}：${list.length} 軒` : `${list.length} 軒を表示`;
+    $("#clearBtn").hidden=!(state.pref||state.q);
+  }
+
+  buildSidebar();
+  render();
+</script>
+</body>
+</html>
