@@ -4,27 +4,34 @@
    泊まりたい宿を追加していきます。
    新しい宿は URL を Claude に渡せば、写真・宿名・場所(県)・金額帯を
    自動取得してここに追記します（手で編集する必要はありません）。
-
-   ※ 下の2件はサンプルです。実際の宿を登録したら削除してOKです。
    ============================================================ */
 
 const HOTELS = [
   {
-    id: "sample-1",
-    name: "界 箱根",
-    pref: "神奈川県",                 // 県（絞り込みに使用）
-    price: "30,000〜",                 // 1泊1名の金額帯目安（任意・空でもOK）
-    photo: "https://images.unsplash.com/photo-1610641818989-c2051b5e2cfd?w=800",
-    url: "https://example.com/kai-hakone",
-    note: "渓流沿いの客室。紅葉の時期に。"   // ひとことメモ（任意・空でもOK）
+    id: "shijima-atami",
+    name: "SHIJIMA ATAMI",
+    pref: "静岡県",
+    price: "",                         // 公式に料金記載なし（2026年8月開業予定）
+    photo: "",                         // サイトがJS描画のため写真URL取得できず（後日追加可）
+    url: "https://shijima-atami.com",
+    note: "熱海・2026年8月開業予定。"
   },
   {
-    id: "sample-2",
-    name: "星のや 京都",
-    pref: "京都府",
-    price: "60,000〜",
-    photo: "https://images.unsplash.com/photo-1545569341-9eb8b30979d9?w=800",
-    url: "https://example.com/hoshinoya-kyoto",
-    note: "渡月橋から舟でアクセスする隠れ宿。"
+    id: "hakone-g",
+    name: "箱根G邸",
+    pref: "神奈川県",
+    price: "",                         // 公式に料金記載なし（オールインクルーシブ）
+    photo: "https://hakone-g.jp/lp/images/kv01.jpg",
+    url: "https://hakone-g.jp/lp/",
+    note: "強羅・2026年10月開業。全室温泉露天風呂、オールインクルーシブ。"
+  },
+  {
+    id: "nazuna-hakone-miyanoshita",
+    name: "Nazuna 箱根 宮ノ下",
+    pref: "神奈川県",
+    price: "",                         // 公式に料金記載なし（時期により変動）
+    photo: "https://www.nazuna.co/wp-content/uploads/2025/03/%E5%A4%96%E8%A6%B301-scaled.jpg",
+    url: "https://www.nazuna.co/property/nazuna-hakone-miyanoshita/",
+    note: "宮ノ下・京町家の意匠。全室露天 or 半露天風呂付き。"
   }
 ];
