@@ -57,7 +57,7 @@ const HOTELS = [
     name: "別邸 海と森",
     pref: "千葉県",
     price: "",
-    photo: "https://www.umitomori.jp/img/top/pic_feature01.jpg",
+    photo: "https://www.umitomori.jp/img/top/pic_feature03.jpg",
     url: "https://www.umitomori.jp/",
     note: "犬吠埼・全室オーシャンビュー＆露天風呂付き。"
   },
@@ -66,7 +66,7 @@ const HOTELS = [
     name: "たてやま温泉 千里の風",
     pref: "千葉県",
     price: "",
-    photo: "https://www.senrinokaze.jp/common/imagres/og.jpg",
+    photo: "https://www.senrinokaze.jp/top/images/spa01.jpg",
     url: "https://www.senrinokaze.jp/",
     note: "館山・平砂浦海岸の眺望温泉リゾート。"
   }
