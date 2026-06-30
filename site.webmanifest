@@ -1,0 +1,11 @@
+{
+  "name": "宿コレクション",
+  "short_name": "宿",
+  "icons": [
+    { "src": "favicon-32.png", "sizes": "32x32", "type": "image/png" },
+    { "src": "apple-touch-icon.png", "sizes": "180x180", "type": "image/png" }
+  ],
+  "theme_color": "#1f3a34",
+  "background_color": "#f4f1ea",
+  "display": "standalone"
+}
