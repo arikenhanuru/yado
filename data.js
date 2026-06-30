@@ -12,7 +12,7 @@ const HOTELS = [
     name: "SHIJIMA ATAMI",
     pref: "静岡県",
     price: "",
-    photo: "",
+    photo: "https://shijima-atami.com/files/images/home/img_openinfo02.webp",
     url: "https://shijima-atami.com",
     note: "熱海・2026年8月開業予定。"
   },
