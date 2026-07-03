@@ -62,6 +62,15 @@ const HOTELS = [
     note: "犬吠埼・全室オーシャンビュー＆露天風呂付き。"
   },
   {
+    id: "hotel-norm-ao",
+    name: "hotel norm. ao",
+    pref: "山梨県",
+    price: "",
+    photo: "https://static.wixstatic.com/media/5bc0a8_d0c4c254d97d4c0f834cdc6944bad9f0~mv2.jpg/v1/fill/w_800,h_500,al_c,q_85,enc_avif,quality_auto/5bc0a8_d0c4c254d97d4c0f834cdc6944bad9f0~mv2.jpg",
+    url: "https://www.hotel-normao.com/",
+    note: "河口湖・富士山麓のウェルネス特化ラグジュアリー。"
+  },
+  {
     id: "senrinokaze",
     name: "たてやま温泉 千里の風",
     pref: "千葉県",
