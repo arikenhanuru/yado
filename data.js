@@ -17,6 +17,15 @@ const HOTELS = [
     note: "熱海・2026年8月開業予定。"
   },
   {
+    id: "muishizen-atami",
+    name: "無為自然-ATAMI-",
+    pref: "静岡県",
+    price: "",
+    photo: "https://www.muishizen-atami.com/wp-content/themes/muishizenatami_prd/images/index/mv01.jpg",
+    url: "https://www.muishizen-atami.com/",
+    note: "熱海・網代。海と森を望む客室温泉露天のリゾート。"
+  },
+  {
     id: "hakone-g",
     name: "箱根G邸",
     pref: "神奈川県",
