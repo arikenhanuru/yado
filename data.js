@@ -116,15 +116,6 @@ const HOTELS = [
     note: "館山・全5邸。プライベートサウナ＆温泉露天付きヴィラ。"
   },
   {
-    id: "sen-yugawara",
-    name: "巛 湯河原 -Sen Yugawara-",
-    pref: "神奈川県",
-    price: "",
-    photo: "",
-    url: "https://senyugawara.jp/",
-    note: "湯河原温泉・全室露天風呂付きのオールインクルーシブ宿。"
-  },
-  {
     id: "kureha",
     name: "紅葉 -KUREHA-",
     pref: "栃木県",
