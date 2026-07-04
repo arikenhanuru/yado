@@ -93,7 +93,7 @@ const HOTELS = [
     name: "那須別邸 回",
     pref: "栃木県",
     price: "",
-    photo: "",
+    photo: "https://bettei-kai.jp/assets/imgs/top/about.avif",
     url: "https://bettei-kai.jp/",
     note: "那須湯本・2000坪に10室。土着をテーマにした温泉旅館。"
   },
@@ -141,5 +141,23 @@ const HOTELS = [
     photo: "https://itsukiri.com/manage/wp-content/themes/itsukiri/assets/img/top/onsen/photo1.jpg",
     url: "https://itsukiri.com/",
     note: "いすみ・里山の黒湯温泉付き一棟貸し古民家＆ヴィラ。"
+  },
+  {
+    id: "gorakadan-fuji",
+    name: "強羅花壇 富士",
+    pref: "静岡県",
+    price: "",
+    photo: "https://www.gorakadan.com/fuji/wp-content/uploads/2025/07/rooftop-01-main.webp",
+    url: "https://www.gorakadan.com/fuji/",
+    note: "富士山麓・須走。全室スイート仕様の温泉宿。"
+  },
+  {
+    id: "fufu-jogashima",
+    name: "ふふ 城ヶ島 海風のしらべ",
+    pref: "神奈川県",
+    price: "",
+    photo: "https://fufujogashima.jp/wordpress/wp-content/themes/jogashima/images/top/room_slide01.jpg",
+    url: "https://fufujogashima.jp/",
+    note: "三浦・城ヶ島。全室オーシャンビュー＆油壺温泉付き。"
   }
 ];
