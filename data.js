@@ -87,5 +87,59 @@ const HOTELS = [
     photo: "https://www.senrinokaze.jp/top/images/spa01.jpg",
     url: "https://www.senrinokaze.jp/",
     note: "館山・平砂浦海岸の眺望温泉リゾート。"
+  },
+  {
+    id: "nasu-bettei-kai",
+    name: "那須別邸 回",
+    pref: "栃木県",
+    price: "",
+    photo: "",
+    url: "https://bettei-kai.jp/",
+    note: "那須湯本・2000坪に10室。土着をテーマにした温泉旅館。"
+  },
+  {
+    id: "okuyugawara-yui",
+    name: "奥湯河原 結唯",
+    pref: "神奈川県",
+    price: "",
+    photo: "https://okuyugawara.jp/wp-content/themes/okuyugawara/images/index/slide_01.jpg",
+    url: "https://okuyugawara.jp/",
+    note: "奥湯河原・一棟貸しの離れと温泉サウナ付き本館。"
+  },
+  {
+    id: "sizca",
+    name: "別庭 雫花",
+    pref: "千葉県",
+    price: "",
+    photo: "https://sizca.jp/top/images/slide/01.jpg",
+    url: "https://sizca.jp/",
+    note: "館山・全5邸。プライベートサウナ＆温泉露天付きヴィラ。"
+  },
+  {
+    id: "sen-yugawara",
+    name: "巛 湯河原 -Sen Yugawara-",
+    pref: "神奈川県",
+    price: "",
+    photo: "",
+    url: "https://senyugawara.jp/",
+    note: "湯河原温泉・全室露天風呂付きのオールインクルーシブ宿。"
+  },
+  {
+    id: "kureha",
+    name: "紅葉 -KUREHA-",
+    pref: "栃木県",
+    price: "",
+    photo: "https://www.vila-kureha.com/files/index/img01_01.jpg",
+    url: "https://www.vila-kureha.com/",
+    note: "塩原温泉・露天風呂付きラグジュアリーコンドミニアムヴィラ。"
+  },
+  {
+    id: "itsukiri",
+    name: "五氣里 -itsukiri-",
+    pref: "千葉県",
+    price: "",
+    photo: "https://itsukiri.com/manage/wp-content/themes/itsukiri/assets/img/top/onsen/photo1.jpg",
+    url: "https://itsukiri.com/",
+    note: "いすみ・里山の黒湯温泉付き一棟貸し古民家＆ヴィラ。"
   }
 ];
