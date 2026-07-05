@@ -175,5 +175,6 @@ const HOTELS = [
   { id: "villa-montpetre", name: "Villa montpetre", pref: "鹿児島県", price: "", photo: "https://montpetre.net/img/top/topSlider01.jpg", url: "https://montpetre.net/", note: "霧島のヴィラ。" },
   { id: "shoen-hanare", name: "水車の宿 松苑", pref: "鹿児島県", price: "", photo: "https://shoenhanare.com/img/top/main1.jpg", url: "https://shoenhanare.com/", note: "霧島の離れ宿。" },
   { id: "koshikano-onsen", name: "こしかの温泉グランピング", pref: "鹿児島県", price: "", photo: "https://koshikano-onsen.com/assets/img/top/top-img-01.jpg", url: "https://koshikano-onsen.com/", note: "霧島・温泉グランピング。" },
-  { id: "bros-resort-kyonan", name: "BROS RESORT KYONAN", pref: "千葉県", price: "", photo: "https://bros-resort.com/assets/hero/fv-sequence/20260526_032-2560.jpg", url: "https://bros-resort.com/", note: "鋸南・海を望む一棟貸しサウナヴィラ。2026年開業。" }
+  { id: "bros-resort-kyonan", name: "BROS RESORT KYONAN", pref: "千葉県", price: "", photo: "https://bros-resort.com/assets/hero/fv-sequence/20260526_032-2560.jpg", url: "https://bros-resort.com/", note: "鋸南・海を望む一棟貸しサウナヴィラ。2026年開業。" },
+  { id: "otowanomori", name: "葉山ホテル音羽ノ森", pref: "神奈川県", price: "", photo: "https://otowanomori.jp/files/images/home/rooms_slider1.jpg", url: "https://otowanomori.jp/", note: "葉山・秋谷。全室オーシャンビューバスのリゾートホテル。" }
 ];
