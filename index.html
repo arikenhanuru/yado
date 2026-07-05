@@ -9,6 +9,8 @@
 <link rel="icon" href="favicon-32.png" sizes="32x32" type="image/png">
 <link rel="apple-touch-icon" href="apple-touch-icon.png">
 <link rel="manifest" href="site.webmanifest">
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 <style>
   :root{
     --bg:#f4f1ea; --card:#fff; --ink:#23211d; --muted:#8a8478;
@@ -79,6 +81,17 @@
   .empty .big{font-size:40px;margin-bottom:10px}
   .backdrop{display:none}
 
+  .view-toggle{display:flex;gap:6px}
+  .vt-btn{border:1px solid var(--line);background:var(--card);color:var(--ink);padding:6px 15px;border-radius:8px;font-size:14px;font-weight:700;cursor:pointer;display:flex;align-items:center;gap:5px}
+  .vt-btn.active{background:var(--accent);color:#fff;border-color:var(--accent)}
+  #map{width:100%;height:72vh;min-height:420px;border-radius:14px;border:1px solid var(--line);overflow:hidden;z-index:1}
+  .pin-dot{width:15px;height:15px;background:var(--accent2);border:2px solid #fff;border-radius:50%;box-shadow:0 1px 5px rgba(0,0,0,.45)}
+  .map-pop{width:180px}
+  .map-pop img{width:100%;height:96px;object-fit:cover;border-radius:8px;display:block;margin-bottom:7px}
+  .map-pop h4{margin:0 0 3px;font-size:15px;line-height:1.3}
+  .map-pop .mp-pref{font-size:12px;color:var(--muted);margin-bottom:5px}
+  .map-pop a{font-size:13px;color:var(--accent2);font-weight:700;text-decoration:none}
+
   @media(max-width:760px){
     .menu-btn{display:block}
     header h1{font-size:17px}
@@ -114,10 +127,15 @@
 
   <main class="main">
     <div class="toolbar">
+      <div class="view-toggle">
+        <button class="vt-btn active" id="btnList">☰ 一覧</button>
+        <button class="vt-btn" id="btnMap">📍 地図</button>
+      </div>
       <span class="result-count" id="resultCount"></span>
       <button class="clear-btn" id="clearBtn" hidden>絞り込みを解除</button>
     </div>
     <div class="grid" id="grid"></div>
+    <div id="map" hidden></div>
     <div class="empty" id="empty" hidden><div class="big">🏞️</div><p>条件に合う宿がありません。</p></div>
   </main>
 </div>
@@ -216,11 +234,55 @@
     document.querySelectorAll(".pref-item").forEach(b=>b.classList.toggle("active", state.pref===b.dataset.val));
     $("#allBtn").classList.toggle("active", !state.pref);
     const list=HOTELS.filter(matches);
-    $("#grid").innerHTML=list.map(card).join("");
-    $("#empty").hidden=list.length>0;
     $("#resultCount").textContent = state.pref ? `${state.pref}：${list.length} 軒` : `${list.length} 軒を表示`;
     $("#clearBtn").hidden=!(state.pref||state.q);
+    if(viewMode==="map"){
+      $("#grid").hidden=true; $("#empty").hidden=true;
+      if(mapReady) updateMarkers();
+      return;
+    }
+    $("#grid").hidden=false;
+    $("#grid").innerHTML=list.map(card).join("");
+    $("#empty").hidden=list.length>0;
   }
+
+  // ---- 地図ビュー ----
+  let viewMode="list", map=null, mapReady=false, markers=[];
+  const pinIcon = () => L.divIcon({className:"", html:'<div class="pin-dot"></div>', iconSize:[15,15], iconAnchor:[8,8], popupAnchor:[0,-8]});
+
+  function initMap(){
+    map = L.map("map",{scrollWheelZoom:true}).setView([37.5,137.5],5);
+    L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",{maxZoom:18,attribution:'&copy; OpenStreetMap'}).addTo(map);
+    mapReady=true;
+  }
+  function updateMarkers(){
+    markers.forEach(m=>map.removeLayer(m)); markers=[];
+    const list=HOTELS.filter(matches).filter(h=>h.lat&&h.lng);
+    list.forEach(h=>{
+      const m=L.marker([h.lat,h.lng],{icon:pinIcon()}).addTo(map);
+      const img=h.photo?`<img src="${h.photo}" alt="" onerror="this.remove()">`:"";
+      const link=h.url?`<a href="${h.url}" target="_blank" rel="noopener">公式サイト ↗</a>`:"";
+      m.bindPopup(`<div class="map-pop">${img}<h4>${h.name}</h4><div class="mp-pref">📍 ${h.pref}</div>${link}</div>`);
+      markers.push(m);
+    });
+    if(markers.length){ map.fitBounds(L.featureGroup(markers).getBounds().pad(0.25),{maxZoom:12}); }
+  }
+  function setView(mode){
+    viewMode=mode;
+    $("#btnList").classList.toggle("active",mode==="list");
+    $("#btnMap").classList.toggle("active",mode==="map");
+    if(mode==="map"){
+      $("#map").hidden=false;
+      if(!mapReady) initMap();
+      render();
+      setTimeout(()=>{ map.invalidateSize(); updateMarkers(); },60);
+    }else{
+      $("#map").hidden=true;
+      render();
+    }
+  }
+  $("#btnList").addEventListener("click",()=>setView("list"));
+  $("#btnMap").addEventListener("click",()=>setView("map"));
 
   buildSidebar();
   render();
