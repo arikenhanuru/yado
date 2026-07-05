@@ -71,6 +71,7 @@
   .thumb .pref{position:absolute;bottom:9px;left:9px;font-size:12px;font-weight:700;background:rgba(31,58,52,.9);color:#fff;padding:3px 10px;border-radius:6px;z-index:2}
   .card-body{padding:13px 15px 15px;display:flex;flex-direction:column;gap:6px;flex:1}
   .card h3{margin:0;font-size:17px;line-height:1.35}
+  .loc{font-size:12.5px;color:var(--muted);margin:0;display:flex;align-items:center;gap:3px}
   .note{font-size:13px;color:#6b6457;margin:0}
   .price{font-size:14px;color:var(--accent2);font-weight:700;display:flex;align-items:center;gap:5px}
   .price .lbl{font-size:11px;color:var(--muted);font-weight:600}
@@ -228,7 +229,8 @@
     const tag=h.url?"a":"div";
     const href=h.url?`href="${h.url}" target="_blank" rel="noopener"`:"";
     const ext=h.url?`<span class="ext">公式サイト ↗</span>`:"";
-    return `<${tag} class="card" ${href}><div class="thumb"><div class="ph"><span class="ph-name">${h.name}</span></div>${img}${pref}</div><div class="card-body"><h3>${h.name}</h3>${note}<div class="card-foot">${price}${ext}</div></div></${tag}>`;
+    const loc=`<div class="loc">📍 ${h.pref}${h.city?" "+h.city:""}</div>`;
+    return `<${tag} class="card" ${href}><div class="thumb"><div class="ph"><span class="ph-name">${h.name}</span></div>${img}${pref}</div><div class="card-body"><h3>${h.name}</h3>${loc}${note}<div class="card-foot">${price}${ext}</div></div></${tag}>`;
   }
   function render(){
     document.querySelectorAll(".pref-item").forEach(b=>b.classList.toggle("active", state.pref===b.dataset.val));
@@ -252,7 +254,7 @@
 
   function initMap(){
     map = L.map("map",{scrollWheelZoom:true}).setView([37.5,137.5],5);
-    L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",{maxZoom:18,attribution:'&copy; OpenStreetMap'}).addTo(map);
+    L.tileLayer("https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}.png",{maxZoom:19,subdomains:"abcd",attribution:'&copy; OpenStreetMap &copy; CARTO'}).addTo(map);
     mapReady=true;
   }
   function updateMarkers(){
@@ -262,7 +264,7 @@
       const m=L.marker([h.lat,h.lng],{icon:pinIcon()}).addTo(map);
       const img=h.photo?`<img src="${h.photo}" alt="" onerror="this.remove()">`:"";
       const link=h.url?`<a href="${h.url}" target="_blank" rel="noopener">公式サイト ↗</a>`:"";
-      m.bindPopup(`<div class="map-pop">${img}<h4>${h.name}</h4><div class="mp-pref">📍 ${h.pref}</div>${link}</div>`);
+      m.bindPopup(`<div class="map-pop">${img}<h4>${h.name}</h4><div class="mp-pref">📍 ${h.pref}${h.city?" "+h.city:""}</div>${link}</div>`);
       markers.push(m);
     });
     if(markers.length){ map.fitBounds(L.featureGroup(markers).getBounds().pad(0.25),{maxZoom:12}); }
