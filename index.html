@@ -244,7 +244,7 @@
       return;
     }
     $("#grid").hidden=false;
-    $("#grid").innerHTML=list.map(card).join("");
+    $("#grid").innerHTML=list.slice().reverse().map(card).join("");
     $("#empty").hidden=list.length>0;
   }
 
