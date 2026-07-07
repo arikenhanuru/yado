@@ -82,6 +82,8 @@
   .empty .big{font-size:40px;margin-bottom:10px}
   .backdrop{display:none}
 
+  .tb-left{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+  .sort-sel{border:1px solid var(--line);background:var(--card);color:var(--ink);border-radius:8px;padding:6px 10px;font-size:14px;font-weight:700;cursor:pointer}
   .view-toggle{display:flex;gap:6px}
   .vt-btn{border:1px solid var(--line);background:var(--card);color:var(--ink);padding:6px 15px;border-radius:8px;font-size:14px;font-weight:700;cursor:pointer;display:flex;align-items:center;gap:5px}
   .vt-btn.active{background:var(--accent);color:#fff;border-color:var(--accent)}
@@ -128,9 +130,17 @@
 
   <main class="main">
     <div class="toolbar">
-      <div class="view-toggle">
-        <button class="vt-btn active" id="btnList">☰ 一覧</button>
-        <button class="vt-btn" id="btnMap">📍 地図</button>
+      <div class="tb-left">
+        <div class="view-toggle">
+          <button class="vt-btn active" id="btnList">☰ 一覧</button>
+          <button class="vt-btn" id="btnMap">📍 地図</button>
+        </div>
+        <select class="sort-sel" id="sortSel" aria-label="並び替え">
+          <option value="new">新しい順</option>
+          <option value="old">古い順</option>
+          <option value="pref">エリア順（北→南）</option>
+          <option value="name">宿名順</option>
+        </select>
       </div>
       <span class="result-count" id="resultCount"></span>
       <button class="clear-btn" id="clearBtn" hidden>絞り込みを解除</button>
@@ -145,7 +155,7 @@
 <script src="data.js"></script>
 <script>
   const $ = s => document.querySelector(s);
-  const state = { pref:null, q:"" };
+  const state = { pref:null, q:"", sort:"new" };
 
   // 地方 → 都道府県（北→南）
   const REGIONS = [
@@ -232,6 +242,16 @@
     const loc=`<div class="loc">📍 ${h.pref}${h.city?" "+h.city:""}</div>`;
     return `<${tag} class="card" ${href}><div class="thumb"><div class="ph"><span class="ph-name">${h.name}</span></div>${img}${pref}</div><div class="card-body"><h3>${h.name}</h3>${loc}${note}<div class="card-foot">${price}${ext}</div></div></${tag}>`;
   }
+  function sortList(list){
+    const idx=h=>HOTELS.indexOf(h);
+    const arr=list.slice();
+    if(state.sort==="old")  return arr.sort((a,b)=>idx(a)-idx(b));
+    if(state.sort==="pref") return arr.sort((a,b)=>(PREF_ORDER.indexOf(a.pref)-PREF_ORDER.indexOf(b.pref))||idx(a)-idx(b));
+    if(state.sort==="name") return arr.sort((a,b)=>a.name.localeCompare(b.name,"ja"));
+    return arr.sort((a,b)=>idx(b)-idx(a)); // new（新しい追加順）
+  }
+  $("#sortSel").addEventListener("change", e=>{ state.sort=e.target.value; render(); });
+
   function render(){
     document.querySelectorAll(".pref-item").forEach(b=>b.classList.toggle("active", state.pref===b.dataset.val));
     $("#allBtn").classList.toggle("active", !state.pref);
@@ -244,7 +264,7 @@
       return;
     }
     $("#grid").hidden=false;
-    $("#grid").innerHTML=list.slice().reverse().map(card).join("");
+    $("#grid").innerHTML=sortList(list).map(card).join("");
     $("#empty").hidden=list.length>0;
   }
 
