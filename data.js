@@ -54,5 +54,5 @@ const HOTELS = [
   { id: "origami-minamiaso", name: "ORIGAMI MINAMIASO", pref: "熊本県", city: "南阿蘇村", price: "", lat: 32.88, lng: 131.03, photo: "https://origami-experience.com/wp-content/uploads/2025/11/DSC09384-3.jpg", url: "https://origami-experience.com/", note: "阿蘇カルデラを望む一棟貸しの宿。" },
   { id: "kamogawa-lien", name: "鴨川温泉 璃庵", pref: "千葉県", city: "鴨川市", price: "", lat: 35.085, lng: 140.108, photo: "https://kamogawalien.com/top/images/main.jpg", url: "https://kamogawalien.com/", note: "太海海岸・温泉露天風呂付き客室と魚料理の旅館。" },
   { id: "skyhill-izukogen", name: "SKY-HILL HOTEL 伊豆高原", pref: "静岡県", city: "伊東市", price: "", lat: 34.905, lng: 139.093, photo: "https://id-village.jp/sky-hillhotel/wp-content/uploads/2023/02/ogp.jpg", url: "https://id-village.jp/sky-hillhotel/", note: "伊豆高原・大室山麓。全室オーシャンビュー、温泉・サウナ付き。" },
-  { id: "beach-terrace-boso", name: "ビーチテラス房総", pref: "千葉県", city: "富津市", price: "", lat: 35.162, lng: 139.818, photo: "", url: "https://beach-terrace.jp/boso/", note: "富津・金谷。全室オーシャンフロント、サウナ付き1棟貸しヴィラ。2024年7月開業。" }
+  { id: "beach-terrace-boso", name: "ビーチテラス房総", pref: "千葉県", city: "富津市", price: "", lat: 35.162, lng: 139.818, photo: "https://beach-terrace.jp/boso/wp-content/uploads/sites/2/2024/07/villa_page_title-1.jpg", url: "https://beach-terrace.jp/boso/", note: "富津・金谷。全室オーシャンフロント、サウナ付き1棟貸しヴィラ。2024年7月開業。" }
 ];
