@@ -57,5 +57,9 @@ const HOTELS = [
   { id: "beach-terrace-boso", name: "ビーチテラス房総", pref: "千葉県", city: "富津市", price: "", lat: 35.162, lng: 139.818, photo: "https://beach-terrace.jp/boso/wp-content/uploads/sites/2/2024/07/villa_page_title-1.jpg", url: "https://beach-terrace.jp/boso/", note: "富津・金谷。全室オーシャンフロント、サウナ付き1棟貸しヴィラ。2024年7月開業。" },
   { id: "hono-aso", name: "阿蘇リトリート HONO", pref: "熊本県", city: "南阿蘇村", price: "", lat: 32.845, lng: 130.965, photo: "https://aso.by-onko-chishin.com/wp-content/uploads/2026/04/Group-1000004350-scaled.jpg", url: "https://aso.by-onko-chishin.com/", note: "南阿蘇・全17室プライベート温泉付き、阿蘇五岳ビュー。2026年11月開業予定。" },
   { id: "hakone-hatsuhana", name: "箱根湯本 はつはな", pref: "神奈川県", city: "箱根町", price: "", lat: 35.223, lng: 139.093, photo: "https://www.hakone-hotelhatsuhana.jp/files/images/ogp.jpg", url: "https://www.hakone-hotelhatsuhana.jp/", note: "奥湯本・須雲川沿い。全室温泉露天風呂付き客室のホテル。" },
-  { id: "seion-fuji", name: "SEION 富士 山中湖", pref: "山梨県", city: "山中湖村", price: "", lat: 35.416, lng: 138.869, photo: "https://hotelseionfuji.lovable.app/ogp-image.jpg", url: "https://fuji.hotel-seion.com/", note: "山中湖畔・富士山を望む一棟貸しプライベートヴィラ。" }
+  { id: "seion-fuji", name: "SEION 富士 山中湖", pref: "山梨県", city: "山中湖村", price: "", lat: 35.416, lng: 138.869, photo: "https://hotelseionfuji.lovable.app/ogp-image.jpg", url: "https://fuji.hotel-seion.com/", note: "山中湖畔・富士山を望む一棟貸しプライベートヴィラ。" },
+  { id: "kakoi-amane", name: "Kakoi 雨音（箱根）", pref: "神奈川県", city: "箱根町", price: "", lat: 35.271, lng: 139.014, photo: "", url: "https://kakoi.co.jp/", note: "仙石原の森に佇む一棟貸し山荘。" },
+  { id: "kakoi-fumi", name: "Kakoi 文弥（箱根）", pref: "神奈川県", city: "箱根町", price: "", lat: 35.271, lng: 139.015, photo: "", url: "https://kakoi.co.jp/", note: "仙石原・築30年を継ぐ一棟貸しの別荘。" },
+  { id: "kakoi-setsurei", name: "Kakoi 雪嶺（富士ヶ嶺）", pref: "山梨県", city: "富士河口湖町", price: "", lat: 35.43, lng: 138.63, photo: "", url: "https://kakoi.co.jp/", note: "富士ヶ嶺・富士を望む一棟貸し邸宅。" },
+  { id: "kakoi-sowa", name: "Kakoi 蒼波（伊豆）", pref: "静岡県", city: "伊東市", price: "", lat: 34.902, lng: 139.132, photo: "", url: "https://kakoi.co.jp/", note: "伊豆・相模湾を望む薪火サウナ付き一棟貸し。" }
 ];
